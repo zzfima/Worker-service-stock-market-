@@ -5,6 +5,7 @@ A WPF (Windows Presentation Foundation) application that sits in the system tray
 ## Features
 
 - **System Tray Integration**: Application runs in the system tray and can only be closed from the tray menu
+- **Real Stock Data**: Fetches live stock prices from Yahoo Finance API (no API key required)
 - **Stock Watching**: Add/remove stocks to monitor via the configuration window
 - **Periodic Updates**: Configurable update interval (default: 5 minutes)
 - **Popup Notifications**: Shows stock prices in a movable, always-on-top popup window
@@ -14,7 +15,7 @@ A WPF (Windows Presentation Foundation) application that sits in the system tray
 ## Usage
 
 1. **Run the Application**: Execute `WorkerServiceStockMarket.exe` from the `bin\Debug\net10.0-windows` folder
-2. **System Tray Icon**: The app will appear in the system tray with an application icon
+2. **System Tray Icon**: The app will appear in the system tray with the stock-market icon
 3. **Configure Stocks**: Right-click the tray icon and select "Configure" to add/remove stocks
 4. **View Prices**: Click "Show Stock Prices" or "Update Now" to see current prices
 5. **Exit**: Only accessible via the "Exit" option in the system tray menu
@@ -28,11 +29,11 @@ A WPF (Windows Presentation Foundation) application that sits in the system tray
 
 ## Stock Data
 
-The application currently uses mock data for demonstration purposes. To use real stock data:
+The application uses Yahoo Finance's free API to fetch real-time stock prices. No API key is required. Supported stock symbols include:
+- US stocks: AAPL, GOOGL, MSFT, TSLA, etc.
+- International stocks: Most major stock symbols supported by Yahoo Finance
 
-1. Get a free API key from [Alpha Vantage](https://www.alphavantage.co/support/#api-key)
-2. Update the `AlphaVantageApiKey` constant in `Services/StockService.cs`
-3. Replace `YOUR_API_KEY` with your actual API key
+If Yahoo Finance is unavailable, the application falls back to consistent mock data (same price for the same symbol).
 
 ## Configuration File
 
@@ -56,7 +57,10 @@ Or run the executable directly:
 
 ## Technical Details
 
-- **Framework**: .NET 10.0 Windows Forms
-- **Architecture**: MVVM-like separation with Models, Services, and Forms
-- **Dependencies**: Newtonsoft.Json for JSON handling
+- **Framework**: .NET 10.0 WPF
+- **Architecture**: MVVM-like separation with Models, Services, and Views
+- **Dependencies**: 
+  - Newtonsoft.Json for JSON handling
+  - Hardcodet.NotifyIcon.Wpf for system tray integration
 - **Persistence**: JSON file in AppData folder
+- **Stock Data Source**: Yahoo Finance API (free, no API key required)
